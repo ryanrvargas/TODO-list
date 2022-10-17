@@ -1,2 +1,2 @@
-This is made to 7.1 Project TODO list
+This is made for 7.1 Project TODO list
 
