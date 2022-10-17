@@ -1,7 +1,7 @@
 list = [""]
 taskAmount = 0
 
-####get task from user
+####Get task from user
 def getTask():
     global list
     global taskAmount
@@ -15,14 +15,15 @@ def getTask():
         pass
     except ValueError:
         print("That was not an integer please try again")
-
+        
+    #copy one array to another
     for x in range(len(task)):
         #print(x, end = " ")
         list += [task]
         list[x] = task[x].lower()
         taskAmount += 1
 
-####removing task from 
+####Removing task from 
 def removeTask():
     global taskAmount
     word = input("What task would you like to remove ")
@@ -30,19 +31,17 @@ def removeTask():
     list.remove(word)
     taskAmount -= 1
 
-####output tasks from user
+####Print task user has inputted
 def printTask():
     print("-----Current Task-----")
     for x in range(len(list)):
         print(list[x])
-        
+
+####Print amount of task
 def taskSize():
-    #for x in range(len(list)):
-        #global taskAmount
-        #taskAmount += 1
     print("Total number of task are :" + str(taskAmount))
 
-####get task from user
+####TEST
 getTask()
 printTask()
 removeTask()
