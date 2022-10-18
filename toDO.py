@@ -74,6 +74,9 @@ try:
 except ValueError:
     print("That was not an integer please try again")
     
+for x in range(20):
+    print("-", end = " ")
+    
 os.system("git add toDO.py")
 os.system("git commit -m 'Updates to toDO.py file'")
 os.system("git push")
