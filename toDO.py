@@ -72,20 +72,8 @@ try:
                   break 
     elif user == "stop":
         print("Good Bye")
-    else:"""
-        getTask()
-        while True:
-            user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
-            match user:
-                case "add":
-                    getTask()
-                case "remove":
-                    removeTask()
-                case "list":
-                    printTask()    
-                case "stop":
-                  print("Good Bye")
-                  break"""
+    else:
+        print("You don't have a list yet")
                   
 except ValueError:
     print("That was not an integer please try again")
