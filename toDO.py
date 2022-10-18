@@ -76,7 +76,7 @@ try:
         print("You don't have a list yet")
                   
 except ValueError:
-    print("That was not an integer please try again")
+    print("That was not a proper input")
     
 for x in range(20):
     print("-", end = " ")
