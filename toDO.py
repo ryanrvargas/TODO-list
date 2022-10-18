@@ -55,11 +55,8 @@ user = user.lower()
 
 #while user == "add":
 try:
-    if user != "add":
-        print("You haven't created a list yet " + user.upper() + ". Will not work")
-    elif user == "stop":
-        print("Good Bye")
-    else:
+    if user == "add":
+        ##print("You haven't created a list yet " + user.upper() + ". Will not work")
         getTask()
         while True:
             user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
@@ -72,7 +69,24 @@ try:
                     printTask()    
                 case "stop":
                   print("Good Bye")
-                  break
+                  break 
+    elif user == "stop":
+        print("Good Bye")
+    else:"""
+        getTask()
+        while True:
+            user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
+            match user:
+                case "add":
+                    getTask()
+                case "remove":
+                    removeTask()
+                case "list":
+                    printTask()    
+                case "stop":
+                  print("Good Bye")
+                  break"""
+                  
 except ValueError:
     print("That was not an integer please try again")
     
