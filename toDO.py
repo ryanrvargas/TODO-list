@@ -1,5 +1,8 @@
+import os
+
 list = [""]
 taskAmount = 0
+cmd = "ls"
 
 ####Get task from user
 def getTask():
@@ -45,6 +48,7 @@ def taskSize():
 user = input("Welcome to you To-Do list to add to your list type 'add' to remove" 
     + " type 'remove' to view list type 'list' ")
 user = user.lower()
+
 #while user == "add":
 try:
     if user != "add":
@@ -65,6 +69,9 @@ try:
                   break
 except ValueError:
     print("That was not an integer please try again")
+os.system("git add toDO.py")
+os.system("git commit -m 'Updates to toDO.py file'")
+os.system("git push")
 
 ####TEST
 
