@@ -57,10 +57,12 @@ user = user.lower()
 try:
     if user != "add":
         print("You haven't created a list yet " + user.upper() + ". Will not work")
+    elif user == "stop":
+        print("Good Bye")
     else:
         getTask()
         while True:
-            user = input("Input weather you'd like to add, remove or view list. Or type 'stop' once you are done")
+            user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
             match user:
                 case "add":
                     getTask()
