@@ -36,14 +36,35 @@ def printTask():
     print("-----Current Task-----")
     for x in range(len(list)):
         print(list[x])
+    taskSize()
 
 ####Print amount of task
 def taskSize():
     print("Total number of task are :" + str(taskAmount))
 
+user = input("Welcome to you To-Do list to add to your list type 'add' to remove" 
+    + " type 'remove' to view list type 'list' ")
+user = user.lower()
+#while user == "add":
+try:
+    if user != "add":
+        print("You haven't created a list yet " + user.upper() + ". Will not work")
+    else:
+        getTask()
+        while True:
+            user = input("Input weather you'd like to add, remove or view list. Or type 'stop' once you are done")
+            match user:
+                case "add":
+                    getTask()
+                case "remove":
+                    removeTask()
+                case "list":
+                    printTask()    
+                case "stop":
+                  print("Good Bye")
+                  break
+except ValueError:
+    print("That was not an integer please try again")
+
 ####TEST
-getTask()
-printTask()
-removeTask()
-printTask()
-taskSize()
+
