@@ -76,6 +76,8 @@ except ValueError:
     
 for x in range(20):
     print("-", end = " ")
+print()    
+
     
 os.system("git add toDO.py")
 os.system("git commit -m 'Updates to toDO.py file'")
