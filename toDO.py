@@ -71,9 +71,10 @@ while run:
                         printTask()    
                     case "stop":
                       print("Good Bye")
-                      run = False
+                      break
         elif user == "stop":
             print("Good Bye")
+            run = False
         else:
             print("You don't have a list yet")
             run = False
