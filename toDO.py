@@ -9,6 +9,7 @@ def main():
     getTask()
     removeTask()
     taskSize()
+    printTask()
 
 ####Get task from user
 def getTask():
