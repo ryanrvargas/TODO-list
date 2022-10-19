@@ -7,7 +7,7 @@ run = True
 
 def main():
     getTask()
-    ##removeTask()
+    removeTask()
     taskSize()
 
 ####Get task from user
@@ -17,28 +17,27 @@ def getTask():
     task = []
     running = True
     user = input("How many Task are in your list ")
-    taskAmount = user
-    ####Make sure user inputs a integer
+    taskAmount = int(user)
+    #Make sure user inputs a integer
     while running:
         try:
             for x in range(int(user)):
                 user = input("Task:" + str(x + 1) + " ")
                 task += [user] #makes list array size
                 if (x+1) >= int(taskAmount):
-                    print("Broke")
                     running = False
                     break      
         except ValueError:
             getTask()
             pass
-    #copy one array to another
+    #Copy one array to another
     for x in range(len(task)):
         #print(x, end = " ")
         list += [task]
         list[x] = task[x].lower()
 
 
-####Removing task from 
+#Removing task from 
 def removeTask():
     global taskAmount
     word = input("What task would you like to remove ")
@@ -67,7 +66,6 @@ def runPro():
 
     try:
         if user == "add":
-            ##print("You haven't created a list yet " + user.upper() + ". Will not work")
             getTask()
             while True:
                 user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
@@ -84,10 +82,8 @@ def runPro():
                       break
         elif user == "stop":
             print("Good Bye")
-            run = False
         else:
             print("You don't have a list yet")
-            run = False
                       
     except ValueError:
         print("That was not a proper input")
