@@ -52,11 +52,10 @@ def taskSize():
 ct = datetime.datetime.now()
 print(ct)
 
-user = input("Welcome to you To-Do list to add to your list type 'add' to remove" 
-    + " type 'remove' to view list type 'list' ")
-user = user.lower()
-
 def runPro():
+    user = input("Welcome to you To-Do list to add to your list type 'add' to remove" 
+                + " type 'remove' to view list type 'list' ")
+    user = user.lower()
 
     try:
         if user == "add":
