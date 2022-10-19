@@ -13,15 +13,20 @@ def getTask():
     global list
     global taskAmount
     task = []
+    running = True
     user = input("How many Task are in your list ")
     ####Make sure user inputs a integer
-    try:
-        for x in range(int(user)):
-            user = input("Task:" + str(x + 1) + " ")
-            task += [user] #makes list array size
-        pass
-    except ValueError:
-        print("That was not an integer please try again")
+    while running:
+        try:
+            for x in range(int(user)):
+                user = input("Task:" + str(x + 1) + " ")
+                task += [user] #makes list array size
+                if (x+1) == user:
+                    running = False
+            pass
+        except ValueError:
+            print("That was not an integer please try again")
+            break
         
     #copy one array to another
     for x in range(len(task)):
