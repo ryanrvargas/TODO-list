@@ -23,10 +23,11 @@ def getTask():
                 task += [user] #makes list array size
                 if (x+1) == user:
                     running = False
-            pass
+            
         except ValueError:
             print("That was not an integer please try again")
-            break
+            running = False
+            
         
     #copy one array to another
     for x in range(len(task)):
