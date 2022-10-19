@@ -7,6 +7,7 @@ run = True
 
 def main():
     getTask()
+    ##removeTask()
     taskSize()
 
 ####Get task from user
