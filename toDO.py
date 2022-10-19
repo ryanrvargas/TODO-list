@@ -1,10 +1,12 @@
 import os
 import datetime
 
-
 list = [""]
 taskAmount = 0
 run = True
+
+def main():
+    getTask()
 
 ####Get task from user
 def getTask():
@@ -54,7 +56,7 @@ user = input("Welcome to you To-Do list to add to your list type 'add' to remove
     + " type 'remove' to view list type 'list' ")
 user = user.lower()
 
-while run:
+def runPro():
 
     try:
         if user == "add":
@@ -71,6 +73,7 @@ while run:
                         printTask()    
                     case "stop":
                       print("Good Bye")
+                      #run = False
                       break
         elif user == "stop":
             print("Good Bye")
@@ -86,6 +89,9 @@ for x in range(20):
     print("-", end = " ")
 print()    
 
+
+if __name__ == '__main__':
+    main()
     
 os.system("git add toDO.py")
 os.system("git commit -m 'Updates to toDO.py file'")
