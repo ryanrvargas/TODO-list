@@ -15,26 +15,26 @@ def getTask():
     task = []
     running = True
     user = input("How many Task are in your list ")
+    taskAmount = user
     ####Make sure user inputs a integer
     while running:
         try:
             for x in range(int(user)):
                 user = input("Task:" + str(x + 1) + " ")
                 task += [user] #makes list array size
-                if (x+1) == user:
+                if (x+1) >= int(taskAmount):
+                    print("Broke")
                     running = False
-            
+                    break      
         except ValueError:
-            print("That was not an integer please try again")
-            running = False
-            
-        
+            getTask()
+            pass
     #copy one array to another
     for x in range(len(task)):
         #print(x, end = " ")
         list += [task]
         list[x] = task[x].lower()
-        taskAmount += 1
+
 
 ####Removing task from 
 def removeTask():
