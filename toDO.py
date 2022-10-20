@@ -10,6 +10,7 @@ def main():
     TUI()
     getTask()
     getList()
+    getTaskSize()
     removeTask()
 
 ####Get task from user
