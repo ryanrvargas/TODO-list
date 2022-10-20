@@ -2,9 +2,6 @@ import os
 import datetime
 
 list = [""]
-taskAmount = 0
-run = True
-
 
 def main():
     exit = False 
@@ -34,7 +31,6 @@ def options():
 ####Get task from user
 def getTask():
     global list
-    global taskAmount
     num, x= 0, 0
     task = []
     running = True
@@ -45,7 +41,6 @@ def getTask():
         num = input()
         if num == int or num == "" or num != 0 or (x+1) == num:
             for x in range(int(num)):
-                taskAmount = int(num)
                 word = input("Task: ")
                 word = word.lower()
                 task += [word] #makes list array size
@@ -65,7 +60,6 @@ def getTask():
 
 #Removing task from 
 def removeTask():
-    global taskAmount
     word = input("What task would you like to remove ")
     word = word.lower()
     #list.remove(word)
@@ -79,7 +73,6 @@ def removeTask():
     # replace file with original name
     os.replace('temp.txt', username + '.txt')
     
-    taskAmount -= 1
 
 ####Print task user has inputted
 def getList():
@@ -90,6 +83,7 @@ def getList():
     for x in list:
         print(x, end = "")
     f.close()
+    getTaskSize()
         
 ####Print amount of task
 def getTaskSize():
@@ -98,9 +92,9 @@ def getTaskSize():
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
     for x in list:
-        print(x, end = "")
         listSize += 1
     f.close()
+    print(listSize + " things in list")
     
     
 def getUser():
