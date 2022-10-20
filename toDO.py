@@ -9,11 +9,10 @@ run = True
 def main():
     exit = False
     
-    getUser()
-    TUI()
-    
-    while not exit:
-        exit = options()
+    getUser()   
+    #while not exit:
+        #TUI()
+        #exit = options()
     
 def options():
     word = input()
@@ -27,6 +26,9 @@ def options():
         case "stop":
             print("Good Bye")
             return True
+        case _:
+            print("Inproper input, selection from the options")
+    TUI()
     
 ####Get task from user
 def getTask():
