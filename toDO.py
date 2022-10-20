@@ -7,12 +7,12 @@ run = True
 
 
 def main():
-    exit = False
-    
+    exit = False 
     getUser()   
-    #while not exit:
-        #TUI()
-        #exit = options()
+    
+    while not exit:
+        TUI()
+        exit = options()
     
 def options():
     word = input()
@@ -23,13 +23,14 @@ def options():
             removeTask()
         case "list":
             getList()
+        case "change user":
+            getUser()
         case "stop":
             print("Good Bye")
             return True
         case _:
             print("Inproper input, selection from the options")
-    TUI()
-    
+
 ####Get task from user
 def getTask():
     global list
@@ -48,8 +49,8 @@ def getTask():
                 word = input("Task:" + str(x + 1) + " ")
                 word = word.lower()
                 task += [word] #makes list array size
-                f = open(username + ".txt", "a")
-                f.write(word + "\n")
+                with open(username + ".txt", "a") as f:
+                    f.write(word + "\n")
                 if (x+1) == int(num):
                     f.close()
                     running = False
@@ -62,65 +63,72 @@ def getTask():
         list += [task]
         list[x] = task[x].lower()
 
-
-
 #Removing task from 
 def removeTask():
     global taskAmount
     word = input("What task would you like to remove ")
     word = word.lower()
-    list.remove(word)
+    #list.remove(word)
     
-    f = open(username + ".txt", "rt")
-    data = f.read()
-    data = data.replace(word, "")
-    f.close
-    f = open(username + ".txt", "wt")
-    f.write(data)
-    f.close()
+    with open(username + ".txt", "r") as inputs:
+        with open("temp.txt", "w") as output:
+            for line in inputs:
+                if not line.strip("\n").startswith(word):
+                    output.write(line)
 
+    # replace file with original name
+    os.replace('temp.txt', username + '.txt')
+    
     taskAmount -= 1
 
 ####Print task user has inputted
 def getList():
-    print("-----Current Task-----")
-    f = open(username + ".txt", "rt")
-    list = f.readlines()
+
+    print("-----Current List-----")
+    with open(username + ".txt", "rt") as f:
+        list = f.readlines()
     for x in list:
         print(x, end = "")
     f.close()
-    
-    
+        
 ####Print amount of task
 def getTaskSize():
-    print("Total number of task are :" + str(taskAmount))
+    global listSize
+    listSize = 0
+    with open(username + ".txt", "rt") as f:
+        list = f.readlines()
+    for x in list:
+        print(x, end = "")
+        listSize += 1
+    f.close()
+    
     
 def getUser():
     global username
-    username = input("Input username: ")
+    username = ""
     while username == "":
-        name = input("Characters are required for username, use anything \nTry again\nInput Username: ")
-        if name == "":
-            print("Characters are required for username, use anything \nTry again\nInput Username: ")
+        username = input("Input username: ")
+        if username == "":
+            print("Characters are required for username, use anything \nTry again ")
         else:
             print("Hello " + username)
-            run = False
+            f = open(username + ".txt", "a")
+            f.close()
 
 def TUI():
-    print("Welcome to you To-Do list.\n-To add to your list type 'add'\n-To remove" 
+    print("\nWelcome to you To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
                 + " type 'remove' \n-To view list type 'list'\n-To change user type 'change " 
                 + "user'\n-To stop type 'stop'\n")
-    
-    
+        
 ct = datetime.datetime.now()
 print(ct)
 
-
 if __name__ == '__main__':
     main()
-   
+
 os.system("git add toDO.py")
-os.system("git commit -m 'Now able to get user, add text to file and remove from file '")
+os.system("git commit -m 'Now able to get user, add text to file and remove from file. New TUI '")
 os.system("git push")
+
 
 
