@@ -6,31 +6,38 @@ taskAmount = 0
 run = True
 
 def main():
+    getUser()
+    TUI()
     getTask()
+    getList()
     removeTask()
-    taskSize()
-    printTask()
 
 ####Get task from user
 def getTask():
     global list
     global taskAmount
+    num, x= 0, 0
     task = []
     running = True
-    user = input("How many Task are in your list ")
-    taskAmount = int(user)
+    print("How many Task are in your list")
+
     #Make sure user inputs a integer
     while running:
-        try:
-            for x in range(int(user)):
-                user = input("Task:" + str(x + 1) + " ")
-                task += [user] #makes list array size
-                if (x+1) >= int(taskAmount):
+        num = input()
+        if num == int or num == "" or num != 0 or (x+1) == num:
+            for x in range(int(num)):
+                taskAmount = int(num)
+                word = input("Task:" + str(x + 1) + " ")
+                word = word.lower()
+                task += [word] #makes list array size
+                f = open(username + ".txt", "a")
+                f.write(word + "\n")
+                if (x+1) == int(num):
+                    f.close()
                     running = False
-                    break      
-        except ValueError:
-            getTask()
-            pass
+                    break
+        else:
+            print("Invalid input, try inputting a number")
     #Copy one array to another
     for x in range(len(task)):
         #print(x, end = " ")
@@ -44,62 +51,68 @@ def removeTask():
     word = input("What task would you like to remove ")
     word = word.lower()
     list.remove(word)
+    
+    f = open(username + ".txt", "rt")
+    data = f.read()
+    data = data.replace(word, "")
+    f.close
+    f = open(username + ".txt", "wt")
+    f.write(data)
+    f.close()
+
     taskAmount -= 1
 
 ####Print task user has inputted
-def printTask():
+def getList():
     print("-----Current Task-----")
-    for x in range(len(list)):
-        print(list[x])
-    taskSize()
-
+    f = open(username + ".txt", "rt")
+    list = f.readlines()
+    for x in list:
+        print(x, end = "")
+    f.close()
+    
+    
 ####Print amount of task
-def taskSize():
+def getTaskSize():
     print("Total number of task are :" + str(taskAmount))
+    
+def getUser():
+    global username
+    username = input("Input username: ")
+    while username == "":
+        name = input("Characters are required for username, use anything \nTry again\nInput Username: ")
+        if name == "":
+            print("Characters are required for username, use anything \nTry again\nInput Username: ")
+        else:
+            print("Hello " + username)
+            run = False
+
+def TUI():
+    print("Welcome to you To-Do list.\n-To add to your list type 'add'\n-To remove" 
+                + " type 'remove' \n-To view list type 'list'\n-To change user type 'change " 
+                + "user'\n-To stop type 'stop'\n")
+    
     
 ct = datetime.datetime.now()
 print(ct)
 
-def runPro():
-    user = input("Welcome to you To-Do list to add to your list type 'add' to remove" 
-                + " type 'remove' to view list type 'list' ")
-    user = user.lower()
-
-    try:
-        if user == "add":
-            getTask()
-            while True:
-                user = input("Input weather you'd like to add, remove, or view list. Or type 'stop' once you are done")
-                match user:
-                    case "add":
-                        getTask()
-                    case "remove":
-                        removeTask()
-                    case "list":
-                        printTask()    
-                    case "stop":
-                      print("Good Bye")
-                      #run = False
-                      break
-        elif user == "stop":
-            print("Good Bye")
-        else:
-            print("You don't have a list yet")
-                      
-    except ValueError:
-        print("That was not a proper input")
-    
-for x in range(20):
-    print("-", end = " ")
-print()    
-
+"""
+    match user:
+    case "add":
+    getTask()
+    case "remove":
+    removeTask()
+    case "list":
+    printTask()    
+    case "stop":
+print("Good Bye")
+ """
 
 if __name__ == '__main__':
     main()
-    
+   
 os.system("git add toDO.py")
-os.system("git commit -m 'Updates to toDO.py file'")
+os.system("git commit -m 'Now able to get user, add text to file and remove from file '")
 os.system("git push")
 
-####TEST
 
