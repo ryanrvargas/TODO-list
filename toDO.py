@@ -46,7 +46,7 @@ def getTask():
         if num == int or num == "" or num != 0 or (x+1) == num:
             for x in range(int(num)):
                 taskAmount = int(num)
-                word = input("Task:" + str(x + 1) + " ")
+                word = input("Task: ")
                 word = word.lower()
                 task += [word] #makes list array size
                 with open(username + ".txt", "a") as f:
