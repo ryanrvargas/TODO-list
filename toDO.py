@@ -1,8 +1,6 @@
 import os
 import datetime
 
-list = [""]
-
 def main():
     exit = False 
     getUser()   
@@ -23,6 +21,7 @@ def options():
         case "change user":
             getUser()
         case "stop":
+            getTaskSize()
             print("Good Bye")
             return True
         case _:
@@ -32,7 +31,6 @@ def options():
 def getTask():
     global list
     num, x= 0, 0
-    task = []
     running = True
     print("How many Task are in your list")
 
@@ -52,17 +50,11 @@ def getTask():
                     break
         else:
             print("Invalid input, try inputting a number")
-    #Copy one array to another
-    for x in range(len(task)):
-        #print(x, end = " ")
-        list += [task]
-        list[x] = task[x].lower()
 
 #Removing task from 
 def removeTask():
     word = input("What task would you like to remove ")
     word = word.lower()
-    #list.remove(word)
     
     with open(username + ".txt", "r") as inputs:
         with open("temp.txt", "w") as output:
@@ -70,14 +62,11 @@ def removeTask():
                 if not line.strip("\n").startswith(word):
                     output.write(line)
 
-    # replace file with original name
     os.replace('temp.txt', username + '.txt')
     
 
 ####Print task user has inputted
 def getList():
-    
-    getTaskSize()
     print("-----Current List-----")
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
@@ -120,7 +109,7 @@ if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'get size of to do list'")
+os.system("git commit -m 'get size of to do list, prints when stopped'")
 os.system("git push")
 
 
