@@ -76,14 +76,14 @@ def removeTask():
 
 ####Print task user has inputted
 def getList():
-
+    
+    getTaskSize()
     print("-----Current List-----")
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
     for x in list:
         print(x, end = "")
     f.close()
-    getTaskSize()
         
 ####Print amount of task
 def getTaskSize():
@@ -94,9 +94,8 @@ def getTaskSize():
     for x in list:
         listSize += 1
     f.close()
-    print(listSize + " things in list")
-    
-    
+    print(str(listSize) + " things in list")
+     
 def getUser():
     global username
     username = ""
@@ -121,7 +120,7 @@ if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'Now able to get user, add text to file and remove from file. New TUI '")
+os.system("git commit -m 'get size of to do list'")
 os.system("git push")
 
 
