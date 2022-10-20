@@ -5,14 +5,29 @@ list = [""]
 taskAmount = 0
 run = True
 
+
 def main():
+    exit = False
+    
     getUser()
     TUI()
-    getTask()
-    getList()
-    getTaskSize()
-    removeTask()
-
+    
+    while not exit:
+        exit = options()
+    
+def options():
+    word = input()
+    match word.lower():
+        case "add":
+            getTask()
+        case "remove":
+            removeTask()
+        case "list":
+            getList()
+        case "stop":
+            print("Good Bye")
+            return True
+    
 ####Get task from user
 def getTask():
     global list
@@ -44,6 +59,7 @@ def getTask():
         #print(x, end = " ")
         list += [task]
         list[x] = task[x].lower()
+
 
 
 #Removing task from 
@@ -97,17 +113,6 @@ def TUI():
 ct = datetime.datetime.now()
 print(ct)
 
-"""
-    match user:
-    case "add":
-    getTask()
-    case "remove":
-    removeTask()
-    case "list":
-    printTask()    
-    case "stop":
-print("Good Bye")
- """
 
 if __name__ == '__main__':
     main()
