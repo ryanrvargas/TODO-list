@@ -1,6 +1,11 @@
 import os
 import datetime
 
+date = str(datetime.datetime.now())
+time = str(datetime.datetime.now())
+date= date[:10]
+time = time[12:16]
+
 def main():
     exit = False 
     getUser()   
@@ -98,19 +103,19 @@ def getUser():
             f.close()
 
 def TUI():
-    print("\nWelcome to you To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
+    print("\nDate " + date + " Time " + time)
+    print("Welcome to you To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
                 + " type 'remove' \n-To view list type 'list'\n-To change user type 'change " 
                 + "user'\n-To stop type 'stop'\n")
         
-ct = datetime.datetime.now()
-print(ct)
+
 
 if __name__ == '__main__':
     main()
+    
 
-os.system("git add toDO.py")
-os.system("git commit -m 'get size of to do list, prints when stopped'")
-os.system("git push")
-
+#os.system("git add toDO.py")
+#os.system("git commit -m 'get size of to do list, prints when stopped'")
+#os.system("git push")
 
 
