@@ -1,16 +1,27 @@
 import os
 import datetime
+from rich import print
+from rich.console import Console
+console = Console()
 
 date = str(datetime.datetime.now())
 time = str(datetime.datetime.now())
 date= date[:10]
 time = time[12:16]
+uses = 0
 
 def main():
+    global date,time
+
     exit = False 
     getUser()   
     
     while not exit:
+        date = str(datetime.datetime.now())
+        time = str(datetime.datetime.now())
+        date= date[:10]
+        time = time[12:16]
+        getList()
         TUI()
         exit = options()
     
@@ -20,11 +31,12 @@ def options():
         case "add":
             getTask()
         case "remove":
-            removeTask()
-        case "list":
-            getList()
-        case "change user":
+            words = input("What task would you like to remove ")
+            removeTask(words)
+        case "change":
             getUser()
+        case "completed":
+            completed()
         case "stop":
             getTaskSize()
             print("Good Bye")
@@ -32,9 +44,30 @@ def options():
         case _:
             print("Inproper input, selection from the options")
 
+def completed():
+    global uses
+    uses += 1
+    print("[bold]Enter amount of task completed ")
+    num = input()
+    if num.isdigit():
+        if uses <= 1:
+            with open(username + ".txt", "a") as f:
+                f.write("Completed Task" + "\n")
+        print(uses)
+        for x in range(int(num)):
+            print("Enter task: ")
+            words = input()
+            words = words.lower()
+            removeTask(words) 
+            with open(username + ".txt", "a") as f:
+                f.write(words + "\n")
+    else:
+        print("Input a number(Digit)")
+
 ####Get task from user
 def getTask():
-    global list
+    global task
+    task  = []
     num, x= 0, 0
     running = True
     print("How many Task are in your list")
@@ -46,7 +79,7 @@ def getTask():
             for x in range(int(num)):
                 word = input("Task: ")
                 word = word.lower()
-                task += [word] #makes list array size
+                task += word
                 with open(username + ".txt", "a") as f:
                     f.write(word + "\n")
                 if (x+1) == int(num):
@@ -57,8 +90,7 @@ def getTask():
             print("Invalid input, try inputting a number")
 
 #Removing task from 
-def removeTask():
-    word = input("What task would you like to remove ")
+def removeTask(word):
     word = word.lower()
     
     with open(username + ".txt", "r") as inputs:
@@ -72,11 +104,11 @@ def removeTask():
 
 ####Print task user has inputted
 def getList():
-    print("-----Current List-----")
+    console.print("-----Current List-----", style = "bold italic")
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
     for x in list:
-        print(x, end = "")
+        print(x, end = "")     
     f.close()
         
 ####Print amount of task
@@ -94,7 +126,8 @@ def getUser():
     global username
     username = ""
     while username == "":
-        username = input("Input username: ")
+        console.print("Input username: ", style = "color(1) bold")
+        username = input()
         if username == "":
             print("Characters are required for username, use anything \nTry again ")
         else:
@@ -105,11 +138,9 @@ def getUser():
 def TUI():
     print("\nDate " + date + " Time " + time)
     print("Welcome to you To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
-                + " type 'remove' \n-To view list type 'list'\n-To change user type 'change " 
+                + " type 'remove'\n-To change user type 'change'\n-To make a completed task type 'completed' "
                 + "user'\n-To stop type 'stop'\n")
         
-
-
 if __name__ == '__main__':
     main()
     
@@ -117,5 +148,16 @@ if __name__ == '__main__':
 #os.system("git add toDO.py")
 #os.system("git commit -m 'get size of to do list, prints when stopped'")
 #os.system("git push")
+"""
+WANTS
+-1Printing list is default behavior
+2No more than 15 items should be printed at once
+(Split into pages) Each page with 15 items max
+3Save completed task
+4Show completed task(words should have a different color or line
+in between to tell the difference between complete and non completed
+5Completed task at begin of list should be deleted
+First task in list should always be incomplete
+List should always be in front of person before they are asked to do anything 
 
-
+"""
