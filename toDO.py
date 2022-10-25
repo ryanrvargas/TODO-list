@@ -65,7 +65,7 @@ def completed():
     else:
         print("Input a number(Digit)")
         
-####Get task from user
+#Get task from user
 def getTask():
     global task
     task  = []
@@ -102,14 +102,17 @@ def removeTask(word):
     os.replace('temp.txt', username + '.txt')
     
 
-####Print task user has inputted
+#Print task user has inputted
 def getList():
-    num, numAtTrue = 0, 0
+    num, numAtTrue, count, page = 0, 0, 0, 1
     crossWord = False
     console.print("-----Current List-----", style = "bold italic")
+    console.print("Page " + str(page), style = "bold white")
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
+    #Print out all the words in the toDo.txt list file
     for x in list:
+        count += 1
         num += 1
         #Find Completed Task
         if x.strip() == "Completed Task":
@@ -121,11 +124,14 @@ def getList():
             console.print(x, end = "", style = "strike")
         else:
             print(str(num) + " "+ x, end = "")
-    print(crossWord)
-    print(numAtTrue)
+        if count >= 15:
+            page += 1
+            count = 0
+            console.print("Page " + str(page), style = "bold white")
+        
     f.close()
 
-####Print amount of task
+#Print amount of task
 def getTaskSize():
     global listSize
     listSize = 0
@@ -135,7 +141,7 @@ def getTaskSize():
         listSize += 1
     f.close()
     print(str(listSize) + " things in list")
-         
+
 def getUser():
     global username
     username = ""
@@ -159,7 +165,7 @@ if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'Cross line going across completed task.'")
+os.system("git commit -m 'Page Numbers have been added'")
 os.system("git push")
 """
 WANTS
@@ -168,7 +174,7 @@ WANTS
 (Split into pages) Each page with 15 items max
 3Save completed task(Good)
 4Show completed task(words should have a different color or line
-in between to tell the difference between complete and non completed
+in between to tell the difference between complete and non completed(GOOD)
 5Completed task at begin of list should be deleted(HUH?)
 First task in list should always be incomplete(GOOD)
 List should always be in front of person before they are asked to do anything(GOOD)
