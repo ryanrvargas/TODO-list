@@ -2,6 +2,7 @@ import os
 import datetime
 from rich import print
 from rich.console import Console
+from rich.style import Style
 console = Console()
 
 date = str(datetime.datetime.now())
@@ -9,6 +10,9 @@ time = str(datetime.datetime.now())
 date= date[:10]
 time = time[12:16]
 uses = 0
+
+error_code = Style(color="red", blink=True, bold=True)
+prompt = Style(color = "white", bold=True)
 
 def main():
     global date,time
@@ -41,6 +45,8 @@ def options():
             getTaskSize()
             print("Good Bye")
             return True
+        case "test":
+            addTaskC()
         case _:
             print("Inproper input, selection from the options")
 
@@ -52,7 +58,7 @@ def completed():
         #if uses is less than 1 it'll print complete task once
         if uses < 1:
             with open(username + ".txt", "a") as f:
-                f.write("Completed Task" + "\n")
+                f.write("completed task" + "\n")
         uses += 1
         print(uses)
         for x in range(int(num)):
@@ -63,7 +69,7 @@ def completed():
             with open(username + ".txt", "a") as f:
                 f.write(words + "\n")
     else:
-        print("Input a number(Digit)")
+        console.print("Input a number(Digit)", style = error_code)
         
 #Get task from user
 def getTask():
@@ -71,13 +77,21 @@ def getTask():
     task  = []
     num, x= 0, 0
     running = True
-    print("How many Task are in your list")
-
-    #Make sure user inputs a integer
+    completed = False
+    console.print("How many task would you like to add to your list?", style = prompt)
+    
+    #Determine weather there are completed task in file of user
+    with open(username + ".txt", "rt") as f:
+        list = f.readlines()
+    for x in list:
+        if x.strip() == "completed task":
+            completed = True
+    
     while running:
         num = input()
-        if num == int or num == "" or num != 0 or (x+1) == num:
-            for x in range(int(num)):
+        if num.isdigit() and completed == False:
+            n = int(num)
+            for x in range(n):
                 word = input("Task: ")
                 word = word.lower()
                 task += word
@@ -87,8 +101,41 @@ def getTask():
                     f.close()
                     running = False
                     break
+        elif num.isdigit() and completed == True:
+            num = int(num)
+            addTaskC(num)
+            break
         else:
-            print("Invalid input, try inputting a number")
+            console.print("Invalid input, try inputting a number", style = error_code)
+#This function adds new task before the completed task but still go at the bottom of the list instead of push the older task to the bottom       
+def addTaskC(tAmount):
+    storage = []
+    number= 0
+    completed = False
+    with open(username + ".txt", "rt") as f:
+        list = f.readlines()
+    #Find out if "completed task" is in the list.
+    for x in list:
+        if x.strip() == "completed task":
+            completed = True
+        #Start storing completed task in an array then remove them from list
+        if completed == True:
+            storage.append(x)
+            print(storage[number], end = "")
+            removeTask(storage[number].strip())
+            number += 1
+    #Input new task 
+    for x in range(tAmount):
+        word = input("Task: ")
+        word = word.lower()
+        with open(username + ".txt", "a") as f:
+            f.write(word + "\n")
+    number = 0
+    #Paste completed task at end of list
+    for x in range(len(storage)):
+        with open(username + ".txt", "a") as f:
+            f.write(storage[number].strip() + "\n")
+        number += 1
 
 #Removing task from 
 def removeTask(word):
@@ -101,7 +148,6 @@ def removeTask(word):
 
     os.replace('temp.txt', username + '.txt')
     
-
 #Print task user has inputted
 def getList():
     num, numAtTrue, count, page = 0, 0, 0, 1
@@ -115,7 +161,7 @@ def getList():
         count += 1
         num += 1
         #Find Completed Task
-        if x.strip() == "Completed Task":
+        if x.strip() == "completed task":
             crossWord = True
             numAtTrue = num + 1
         #If Completed Task is found, and num is greater than numAtTrue then put a strike through the word
@@ -157,7 +203,7 @@ def getUser():
 
 def TUI():
     print("\nDate " + date + " Time " + time)
-    print("Welcome to you To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
+    print("Welcome to your To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
                 + " type 'remove'\n-To change user type 'change'\n-To make a completed task type 'completed' "
                 + "user'\n-To stop type 'stop'\n")
         
@@ -165,7 +211,7 @@ if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'Page Numbers have been added'")
+os.system("git commit -m 'Add new task once completed task are in list. Put new task at bottom of list then paste completed  task'")
 os.system("git push")
 """
 WANTS
