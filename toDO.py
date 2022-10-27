@@ -1,3 +1,4 @@
+#https://github.com/ryanrvargas
 import os
 import datetime
 from rich import print
@@ -52,7 +53,7 @@ def options():
 
 def completed():
     global uses
-    print("[bold]Enter amount of task completed ")
+    console.print("Enter amount of task completed ", style = prompt)
     num = input()
     if num.isdigit():
         #if uses is less than 1 it'll print complete task once
@@ -60,7 +61,6 @@ def completed():
             with open(username + ".txt", "a") as f:
                 f.write("completed task" + "\n")
         uses += 1
-        print(uses)
         for x in range(int(num)):
             print("Enter task: ")
             words = input()
@@ -73,8 +73,6 @@ def completed():
         
 #Get task from user
 def getTask():
-    global task
-    task  = []
     num, x= 0, 0
     running = True
     completed = False
@@ -94,7 +92,6 @@ def getTask():
             for x in range(n):
                 word = input("Task: ")
                 word = word.lower()
-                task += word
                 with open(username + ".txt", "a") as f:
                     f.write(word + "\n")
                 if (x+1) == int(num):
@@ -121,13 +118,13 @@ def addTaskC(tAmount):
         #Start storing completed task in an array then remove them from list
         if completed == True:
             storage.append(x)
-            print(storage[number], end = "")
+            #print(storage[number], end = "")
             removeTask(storage[number].strip())
             number += 1
     #Input new task 
     for x in range(tAmount):
-        word = input("Task: ")
-        word = word.lower()
+        print("Task: ")
+        word = input().lower()
         with open(username + ".txt", "a") as f:
             f.write(word + "\n")
     number = 0
@@ -192,26 +189,26 @@ def getUser():
     global username
     username = ""
     while username == "":
-        console.print("Input username: ", style = "color(1) bold")
+        console.print("Input username: ", style = "red bold")
         username = input()
         if username == "":
             print("Characters are required for username, use anything \nTry again ")
         else:
-            print("Hello " + username)
+            console.print("Hello " + username, style = "italic")
             f = open(username + ".txt", "a")
             f.close()
 
 def TUI():
     print("\nDate " + date + " Time " + time)
-    print("Welcome to your To-Do list " + username + ".\n-To add to your list type 'add'\n-To remove" 
+    console.print("[not bold]Welcome to your To-Do list[/not bold] " + username + ".\n-To add to your list type 'add'\n-To remove" 
                 + " type 'remove'\n-To change user type 'change'\n-To make a completed task type 'completed' "
-                + "user'\n-To stop type 'stop'\n")
+                + "user'\n-To stop type 'stop'\n", style = prompt)
         
 if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'Add new task once completed task are in list. Put new task at bottom of list then paste completed  task'")
+os.system("git commit -m 'Cleaning up, adding more RICH text'")
 os.system("git push")
 """
 WANTS
