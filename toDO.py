@@ -46,8 +46,6 @@ def options():
             getTaskSize()
             print("Good Bye")
             return True
-        case "test":
-            addTaskC()
         case _:
             print("Inproper input, selection from the options")
 
@@ -177,12 +175,14 @@ def getList():
 #Print amount of task
 def getTaskSize():
     global listSize
-    listSize = 0
+    listSize = -1
     with open(username + ".txt", "rt") as f:
         list = f.readlines()
     for x in list:
         listSize += 1
     f.close()
+    if listSize < 0:
+        listSize = 0
     print(str(listSize) + " things in list")
 
 def getUser():
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     main()
 
 os.system("git add toDO.py")
-os.system("git commit -m 'Cleaning up, adding more RICH text'")
+os.system("git commit -m 'list size is fix'")
 os.system("git push")
 """
 WANTS
