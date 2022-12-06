@@ -9,3 +9,4 @@ Requirements:
 -User friendly, no memorization.
 -Auto recall or prompt recall.
 -Report total # of tasks.
+School Project
